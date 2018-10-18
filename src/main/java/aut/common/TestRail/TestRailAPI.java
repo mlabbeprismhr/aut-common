@@ -252,6 +252,46 @@ public class TestRailAPI {
 		}
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void addRunTestResult(String ID, String planOrRun, String runSearch, Long[] testCases, Integer status, String comment) throws Exception {
+		Long runID;
+		Map newResult = new HashMap();
+		newResult.put("status_id", status);
+		newResult.put("comment", comment);
+				
+		// Set Client
+		setClient();
+		
+		// If PlanID, then need these steps to get plan, and plan entries(runs), find my run
+		if (planOrRun.toLowerCase().equals("plan")) {
+			// Get Plan
+			JSONObject thisPlan = getPlan(ID);
+			// Get Entries
+			JSONArray thisEntries = getPlanEntries(thisPlan);
+			// Get RunID
+			runID = getRunID(thisEntries, runSearch);
+		} else {
+			runID = Long.parseLong(ID);
+		}
+			
+		// For each Test String, get ID and record result
+		for (Long thisTest : testCases) {
+			// Update Result
+			boolean foundMe = runTestCaseIDFound(runID, thisTest);
+			if (foundMe) { // Only record if Test is Found.
+				Reporter.log("***** TestRail ADD: "+planOrRun+":"+ID+" / test("+thisTest+") / "+runSearch+" / status("+status+") / comment("+comment+")", true);
+				try {
+					JSONObject resultResponse = updateTestResult(runID, thisTest, newResult);
+				} catch (Exception e) {
+					Reporter.log("***** TestRail API ERROR: "+e.getMessage(), true);
+				}
+			} else {
+				Reporter.log("***** TestRail ERROR: Test Case ID "+thisTest+" NOT found in Run ID "+runID, true);
+			}
+			Thread.sleep(waitTime);
+		}
+	}
+
 	public ArrayList<String> getRunTestIds(String runId) throws Exception {
 		ArrayList<String> returnList = new ArrayList<String>();
 		setClient();
