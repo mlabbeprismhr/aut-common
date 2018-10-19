@@ -4,7 +4,7 @@
 
   <groupId>auto</groupId>
   <artifactId>auto-common</artifactId>
-  <version>1.0</version>
+  <version>${release}-${revision}</version>
   <packaging>jar</packaging>
 
   <name>common</name>
@@ -12,6 +12,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <release>1.0</release>
+    <revision>SNAPSHOT</revision>
   </properties>
 
   <dependencies>
