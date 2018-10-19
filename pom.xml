@@ -12,8 +12,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <release>1.0</release>
-    <revision>SNAPSHOT</revision>
   </properties>
 
   <dependencies>
