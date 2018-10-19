@@ -4,7 +4,7 @@
 
   <groupId>auto</groupId>
   <artifactId>auto-common</artifactId>
-  <version>${release}</version>
+  <version>${buildNumber}</version>
   <packaging>jar</packaging>
 
   <name>common</name>
