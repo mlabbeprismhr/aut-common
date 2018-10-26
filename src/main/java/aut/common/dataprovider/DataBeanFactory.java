@@ -4,7 +4,7 @@ package aut.common.dataprovider;
 public class DataBeanFactory {
 
 	@SuppressWarnings("unchecked")
-	public <T> T createLocalYamlDataBean(IDataBean iDataBean, String currentEnv) throws Exception {
+	public static <T> T createLocalYamlDataBean(IDataBean iDataBean, String currentEnv) throws Exception {
 		String id = iDataBean.getValue();
 		Class<?> clazz = iDataBean.getClazz();
 		YamlDataProvider iDataProvider = new YamlDataProvider();
